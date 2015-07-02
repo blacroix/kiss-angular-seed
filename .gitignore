@@ -1,0 +1,7 @@
+index.html
+bower_components
+node_modules
+style/app.css*
+dist
+.iml
+.idea

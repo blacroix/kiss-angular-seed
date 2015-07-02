@@ -1,0 +1,30 @@
+{
+  "name": "kiss-angular-seed",
+  "version": "0.0.1",
+  "authors": [
+    "blacroix <benjlacroix@gmail.com>"
+  ],
+  "description": "KISS Angular seed project with SASS minify and gh-pages deploy",
+  "main": "app/app.js",
+  "keywords": [
+    "angular",
+    "seed",
+    "sass",
+    "gh-pages",
+    "kiss"
+  ],
+  "license": "Apache-2.0",
+  "homepage": "blacroix.github.io/kiss-angular-seed",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.1",
+    "angular-route": "~1.4.1",
+    "angular-resource": "~1.4.1"
+  }
+}
