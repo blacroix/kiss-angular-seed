@@ -40,9 +40,14 @@ module.exports = function (grunt) {
                 }
             },
 
-            index: {
+            target: {
                 src: 'index.html.hbs',
                 dest: 'index.html'
+            },
+
+            prod: {
+                src: 'index-prod.html.hbs',
+                dest: 'dist/index.html'
             }
 
         },
@@ -107,17 +112,28 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         src: [
-                            'index.html',
-                            'app/**/*.html',
-                            'style/app.css'
-                        ].concat(
-                            vendor,
-                            source
-                        ),
+                            'app/**/*.html'
+                        ],
                         dest: 'dist/',
                         filter: 'isFile'
                     }
                 ]
+            }
+        },
+
+        cssmin: {
+            target: {
+                files: {
+                    'dist/style/app.min.css': ['style/app.css']
+                }
+            }
+        },
+
+        uglify: {
+            target: {
+                files: {
+                    'dist/app.min.js': vendor.concat(source)
+                }
             }
         },
 
@@ -138,9 +154,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-gh-pages');
     grunt.loadNpmTasks('grunt-writefile');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.registerTask('default', ['sass', 'writefile', 'connect:livereload', 'watch']);
-    grunt.registerTask('dist', ['sass', 'writefile', 'clean:dist', 'copy:dist']);
+    grunt.registerTask('dist', ['sass', 'clean:dist', 'cssmin', 'uglify', 'writefile:prod', 'copy:dist']);
     grunt.registerTask('deploy', ['dist', 'gh-pages']);
 
 };

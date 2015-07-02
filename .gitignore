@@ -5,3 +5,4 @@ style/app.css*
 dist
 .iml
 .idea
+app.min.css
