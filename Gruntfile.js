@@ -112,7 +112,8 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         src: [
-                            'app/**/*.html'
+                            'app/**/*.html',
+                            'img/**/*'
                         ],
                         dest: 'dist/',
                         filter: 'isFile'
@@ -132,8 +133,18 @@ module.exports = function (grunt) {
         uglify: {
             target: {
                 files: {
-                    'dist/app.min.js': vendor.concat(source)
+                    'dist/app.min.js': source
                 }
+            }
+        },
+
+        concat: {
+            options: {
+                separator: ';'
+            },
+            target: {
+                src: vendor,
+                dest: 'dist/vendor.min.js'
             }
         },
 
@@ -156,9 +167,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-writefile');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-concat');
 
     grunt.registerTask('default', ['sass', 'writefile', 'connect:livereload', 'watch']);
-    grunt.registerTask('dist', ['sass', 'clean:dist', 'cssmin', 'uglify', 'writefile:prod', 'copy:dist']);
+    grunt.registerTask('dist', ['sass', 'clean:dist', 'cssmin', 'uglify', 'concat', 'writefile:prod', 'copy:dist']);
     grunt.registerTask('deploy', ['dist', 'gh-pages']);
 
 };
